@@ -1,0 +1,42 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+
+# Local settings
+terraform/terraform.tfvars
+terraform/*.auto.tfvars
+terraform/*.auto.tfvars.json
+
+# Generated files
+terraform/lambda.zip
+frontend/config.js
+
+# Python
+__pycache__/
+*.pyc
+
+# Backups
+backup-*/
+local-backup-*/
+*.bak
+*.bak-*
+
+# Local helper scripts
+setup_understanding_note.sh
+update_fluent_ui.sh
+prepare_github.sh
+
+# Environment / credentials
+.env
+.env.*
+.aws/
+credentials
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

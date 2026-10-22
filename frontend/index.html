@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="自分の言葉で説明し、AIからの質問で理解を確認するアプリ"
+  >
+
+  <title>理解メモ</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="top-bar">
+      <div class="top-bar__inner">
+        <div class="brand">
+          <div
+            class="brand__icon"
+            aria-hidden="true"
+          >
+            理
+          </div>
+
+          <div>
+            <div class="brand__name">理解メモ</div>
+            <div class="brand__product">Learning Notes</div>
+          </div>
+        </div>
+
+        <div
+          id="connection-status"
+          class="status-badge"
+          aria-live="polite"
+        >
+          <span class="status-dot"></span>
+          接続確認中
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">UNDERSTANDING NOTE</p>
+
+          <h1>自分の言葉で、理解を残す。</h1>
+
+          <p class="hero__description">
+            学んだ内容を説明として記録し、
+            AIからの確認質問に答えて理解を深めます。
+          </p>
+        </div>
+
+        <button
+          id="focus-form"
+          class="button button--primary hero__button"
+          type="button"
+        >
+          <span aria-hidden="true">＋</span>
+          新しいメモ
+        </button>
+      </section>
+
+      <div
+        id="message"
+        class="message"
+        aria-live="polite"
+        hidden
+      ></div>
+
+      <div class="content-grid">
+        <section
+          id="new-note"
+          class="card composer-card"
+        >
+          <div class="card__header">
+            <div>
+              <p class="card__eyebrow">NEW NOTE</p>
+              <h2>新しいメモ</h2>
+            </div>
+
+            <div
+              class="card__icon"
+              aria-hidden="true"
+            >
+              ✎
+            </div>
+          </div>
+
+          <form id="note-form">
+            <div class="field">
+              <label for="title">
+                タイトル
+                <span class="required">必須</span>
+              </label>
+
+              <input
+                id="title"
+                name="title"
+                type="text"
+                maxlength="100"
+                autocomplete="off"
+                placeholder="例: プロセス切り替えの仕組み"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <div class="field__heading">
+                <label for="explanation">
+                  自分の説明
+                  <span class="required">必須</span>
+                </label>
+
+                <span
+                  id="explanation-count"
+                  class="character-count"
+                >
+                  0 / 3000
+                </span>
+              </div>
+
+              <textarea
+                id="explanation"
+                name="explanation"
+                rows="9"
+                maxlength="3000"
+                placeholder="AIの回答を写すのではなく、自分が説明できることを書いてください。"
+                required
+              ></textarea>
+
+              <p class="field__hint">
+                完璧でなくても構いません。現在の理解を自分の言葉で記録します。
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="tag">タグ</label>
+
+              <input
+                id="tag"
+                name="tag"
+                type="text"
+                maxlength="30"
+                autocomplete="off"
+                placeholder="例: OS、AWS、Security"
+              >
+            </div>
+
+            <div class="form-actions">
+              <button
+                id="save-note"
+                class="button button--primary"
+                type="submit"
+              >
+                <span aria-hidden="true">✓</span>
+                メモを保存
+              </button>
+
+              <button
+                id="clear-form"
+                class="button button--secondary"
+                type="button"
+              >
+                クリア
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="card guide-card">
+          <div class="card__header">
+            <div>
+              <p class="card__eyebrow">HOW TO USE</p>
+              <h2>使い方</h2>
+            </div>
+          </div>
+
+          <ol class="steps">
+            <li>
+              <span class="step-number">1</span>
+              <div>
+                <strong>自分で説明する</strong>
+                <p>理解していることを、自分の言葉で記録します。</p>
+              </div>
+            </li>
+
+            <li>
+              <span class="step-number">2</span>
+              <div>
+                <strong>AIから質問を受ける</strong>
+                <p>理由や内部動作を確認する質問が1問作成されます。</p>
+              </div>
+            </li>
+
+            <li>
+              <span class="step-number">3</span>
+              <div>
+                <strong>自分で回答する</strong>
+                <p>回答に対する短いフィードバックを確認します。</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="privacy-note">
+            <span
+              class="privacy-note__icon"
+              aria-hidden="true"
+            >
+              ⓘ
+            </span>
+
+            <p>
+              顧客名、認証情報、社内URLなどの
+              機密情報は入力しないでください。
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <section class="notes-section">
+        <div class="section-header">
+          <div>
+            <p class="card__eyebrow">SAVED NOTES</p>
+            <h2>保存したメモ</h2>
+          </div>
+
+          <div class="section-actions">
+            <span
+              id="note-count"
+              class="note-count"
+            >
+              0件
+            </span>
+
+            <button
+              id="reload"
+              class="button button--icon"
+              type="button"
+              aria-label="メモを再読み込み"
+              title="再読み込み"
+            >
+              ↻
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="loading"
+          class="loading-state"
+          hidden
+        >
+          <span class="spinner"></span>
+          メモを読み込んでいます
+        </div>
+
+        <div
+          id="empty-state"
+          class="empty-state"
+          hidden
+        >
+          <div
+            class="empty-state__icon"
+            aria-hidden="true"
+          >
+            📝
+          </div>
+
+          <h3>メモはまだありません</h3>
+
+          <p>
+            最初のメモを作成し、自分の理解を記録してみましょう。
+          </p>
+        </div>
+
+        <div
+          id="notes"
+          class="notes-list"
+        ></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>理解メモ</span>
+      <span>Powered by AWS and Amazon Bedrock</span>
+    </footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
