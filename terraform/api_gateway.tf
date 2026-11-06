@@ -5,7 +5,7 @@ resource "aws_apigatewayv2_api" "main" {
   cors_configuration {
     allow_origins = ["*"]
     allow_headers = ["Content-Type", "X-App-Key"]
-    allow_methods = ["GET", "POST", "DELETE", "OPTIONS"]
+    allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     max_age       = 3600
   }
 }
@@ -24,9 +24,12 @@ resource "aws_apigatewayv2_route" "routes" {
     "GET /notes",
     "POST /notes",
     "GET /notes/{id}",
+    "PUT /notes/{id}",
     "DELETE /notes/{id}",
     "POST /notes/{id}/question",
-    "POST /notes/{id}/answer"
+    "POST /notes/{id}/questions/{qa_id}/answer",
+    "PUT /notes/{id}/questions/{qa_id}/memo",
+    "DELETE /notes/{id}/questions/{qa_id}"
   ])
 
   api_id    = aws_apigatewayv2_api.main.id

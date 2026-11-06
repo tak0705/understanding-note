@@ -735,3 +735,12 @@ textarea:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Q&A履歴、学習メモ、メモ編集 */
+.note-header-actions,.qa-item__header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.note-edit-panel{padding:16px;background:var(--color-surface-subtle);border:1px solid var(--color-border-light);border-radius:var(--radius-medium)}
+.qa-item{margin-top:18px;padding:16px;background:#f7f7f7;border-left:4px solid var(--color-purple);border-radius:var(--radius-medium)}
+.qa-question{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.qa-item .feedback-panel{margin-top:16px}
+.learning-memo{margin-top:16px;padding-top:16px;border-top:1px solid var(--color-border-light)}
+.learning-memo textarea{min-height:100px;margin-bottom:10px;background:#fff}.button--small{min-height:32px;padding:4px 9px;font-size:12px}
+@media(max-width:640px){.note-card__header,.note-header-actions{align-items:stretch;flex-direction:column}.note-header-actions .button,.qa-item__header .button{width:100%}}
